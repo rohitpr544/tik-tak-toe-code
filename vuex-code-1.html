@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tik-Tak-Toe</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+      <style>
+        table {
+  font-family: 'Open Sans', sans-serif;
+  width: 100;
+  border-collapse: collapse;
+  border: 3px solid #44475C;
+  margin: 10px 10px 0 10px;
+}
+
+table th {
+  text-transform: uppercase;
+  text-align: left;
+  background: #44475C;
+  color: #FFF;
+  padding: 8px;
+  min-width: 30px;
+}
+
+table td {
+  text-align: left;
+  padding: 8px;
+  border-right: 2px solid #7D82A8;
+}
+table td:last-child {
+  border-right: none;
+}
+table tbody tr:nth-child(2n) td {
+  background: #D4D8F9;
+}
+
+    
+    </style>
+</head>
+
+<body style="--tw-bg-opacity: 1;background-color: rgba(100, 200, 250, var(--tw-bg-opacity));">
+    <br>
+<center>
+<h1 style="font-size: 2rem;line-height: 1rem;"><b>TIk-TAK-TOE</b></h1>
+
+<br>
+
+<br>
+<p>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction();this.disabled=true;"><span id="sym1"> {{ message }}</span></button>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction2();this.disabled=true;"><span id="sym2"> {{ message }}</span></button>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction3();this.disabled=true;"><span id="sym3"> {{ message }}</span></button>
+</p><br>
+<p>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction4();this.disabled=true;"><span id="sym4"> {{ message }}</span></button>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction5();this.disabled=true;"><span id="sym5"> {{ message }}</span></button>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction6();this.disabled=true;"><span id="sym6"> {{ message }}</span></button>
+</p><br>
+<p>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction7();this.disabled=true;"><span id="sym7"> {{ message }}</span></button>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction8();this.disabled=true;"><span id="sym8"> {{ message }}</span></button>
+  <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded"  onclick="myFunction9();this.disabled=true;"><span id="sym9"> {{ message }}</span></button>
+</p>
+</center>
+<br>
+<center>
+   <table id="tb1">
+  <thead>
+    <tr>
+      <th v-for="col in columns">{{col}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="row in rows">
+      <td v-for="col in columns">{{row[col]}}</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+
+<script>
+
+ var cnt = 0;
+ var today = new Date();
+ var sec = today.getSeconds();
+var tmsec= new Vue({
+  el: '#tma',
+  data: {message: today.getSeconds()}
+})
+var myObject = new Vue({
+  el: '#app',
+  data: {message: 'value: '}
+})
+var arr = new Vue({
+  el: '#tags',
+  data: {
+    tags: ['-','-','-','-','-','-','-','-','-']
+  }
+})
+var stb = new Vue({
+  el: '#tb1',
+  data: {
+    rows: [
+      { Player: null, Time: null }
+    ]
+  },
+  computed: {
+    "columns": function columns() {
+      if (this.rows.length == 0) {
+        return [];
+      }
+      return Object.keys(this.rows[0])
+    }
+  }
+});
+var c1 =new Vue({
+  el: '#sym1',
+  data: {message: '-'}
+})
+var c2 =new Vue({
+  el: '#sym2',
+  data: {message: '-'}
+})
+var c3 =new Vue({
+  el: '#sym3',
+  data: {message: '-'}
+})
+var c4 =new Vue({
+  el: '#sym4',
+  data: {message: '-'}
+})
+var c5 =new Vue({
+  el: '#sym5',
+  data: {message: '-'}
+})
+var c6 =new Vue({
+  el: '#sym6',
+  data: {message: '-'}
+})
+var c7 =new Vue({
+  el: '#sym7',
+  data: {message: '-'}
+})
+var c8 =new Vue({
+  el: '#sym8',
+  data: {message: '-'}
+})
+var c9 =new Vue({
+  el: '#sym9',
+  data: {message: '-'}
+})
+function myFunction() {
+    myObject.message += "1" ;
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c1.message ="X";
+        arr.tags[0] = 1;
+    }
+    else{
+        c1.message ="O";
+        arr.tags[0] = 2;
+    }
+ if(arr.tags[0] == "1" && arr.tags[1] == "1" && arr.tags[2] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "1" && arr.tags[4] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "1" && arr.tags[3] == "1" && arr.tags[6] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[1] == "2" && arr.tags[2] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[4] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[3] == "2" && arr.tags[6] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+ var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[0],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction2() {
+    myObject.message += "2";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c2.message ="X";
+        arr.tags[1] = 1;
+    }
+    else{
+        c2.message ="O";
+        arr.tags[1] = 2;
+    }
+ if(arr.tags[0] == "1" && arr.tags[1] == "1" && arr.tags[2] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[1] == "1" && arr.tags[4] == "1" && arr.tags[7] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[1] == "2" && arr.tags[2] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[1] == "2" && arr.tags[4] == "2" && arr.tags[7] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+ var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[1],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction3() {
+    myObject.message += "3";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c3.message ="X";
+        arr.tags[2] = 1;
+    }
+    else{
+        c3.message ="O";
+        arr.tags[2] = 2;
+    }
+    if(arr.tags[0] == "1" && arr.tags[1] == "1" && arr.tags[2] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[2] == "1" && arr.tags[4] == "1" && arr.tags[6] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[2] == "1" && arr.tags[5] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[1] == "2" && arr.tags[2] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[2] == "2" && arr.tags[4] == "2" && arr.tags[6] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[2] == "2" && arr.tags[5] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+ var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[2],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction4() {
+    myObject.message += "4";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c4.message ="X";
+        arr.tags[3] = 1;
+    }
+    else{
+        c4.message ="O";
+        arr.tags[3] = 2;
+    }
+ if(arr.tags[0] == "1" && arr.tags[3] == "1" && arr.tags[6] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[3] == "1" && arr.tags[4] == "1" && arr.tags[5] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[3] == "2" && arr.tags[6] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[3] == "2" && arr.tags[4] == "2" && arr.tags[5] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[3],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction5() {
+    myObject.message += "5";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c5.message ="X";
+        arr.tags[4] = 1;
+    }
+    else{
+        c5.message ="O";
+        arr.tags[4] = 2;
+    }
+  if(arr.tags[1] == "1" && arr.tags[4] == "1" && arr.tags[7] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[3] == "1" && arr.tags[4] == "1" && arr.tags[5] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "1" && arr.tags[4] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[2] == "1" && arr.tags[4] == "1" && arr.tags[6] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[1] == "2" && arr.tags[4] == "2" && arr.tags[7] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[3] == "2" && arr.tags[4] == "2" && arr.tags[5] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[4] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[2] == "2" && arr.tags[4] == "2" && arr.tags[6] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+ var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[4],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction6() {
+    myObject.message += "6";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c6.message ="X";
+        arr.tags[5] = 1;
+    }
+    else{
+        c6.message ="O";
+        arr.tags[5] = 2;
+    }
+    if(arr.tags[2] == "1" && arr.tags[5] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[3] == "1" && arr.tags[4] == "1" && arr.tags[5] == "1"){
+    alert("X won");
+ }
+  if(arr.tags[2] == "2" && arr.tags[5] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[3] == "2" && arr.tags[4] == "2" && arr.tags[5] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+ var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[5],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction7() {
+    myObject.message += "7";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c7.message ="X";
+        arr.tags[6] = 1;
+    }
+    else{
+        c7.message ="O";
+        arr.tags[6] = 2;
+    }
+    if(arr.tags[0] == "1" && arr.tags[3] == "1" && arr.tags[6] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[2] == "1" && arr.tags[4] == "1" && arr.tags[6] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[6] == "1" && arr.tags[7] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[3] == "2" && arr.tags[6] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[2] == "2" && arr.tags[4] == "2" && arr.tags[6] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[6] == "2" && arr.tags[7] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+ var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[6],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction8() {
+    myObject.message += "8";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c8.message ="X";
+        arr.tags[7] = 1;
+    }
+    else{
+        c8.message ="O";
+        arr.tags[7] = 2;
+    }
+    if(arr.tags[1] == "1" && arr.tags[4] == "1" && arr.tags[7] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[6] == "1" && arr.tags[7] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[1] == "2" && arr.tags[4] == "2" && arr.tags[7] == "2"){
+    alert("O won");
+ }
+ if(arr.tags[6] == "2" && arr.tags[7] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[7],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+function myFunction9() {
+    myObject.message += "9";
+    cnt = cnt + 1;
+    if(cnt % 2){
+        c9.message ="X";
+        arr.tags[8] = 1;
+    }
+    else{
+        c9.message ="O";
+        arr.tags[8] = 2;
+    }
+     if(arr.tags[0] == "1" && arr.tags[4] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+  if(arr.tags[6] == "1" && arr.tags[7] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+  if(arr.tags[2] == "1" && arr.tags[5] == "1" && arr.tags[8] == "1"){
+    alert("X won");
+ }
+ if(arr.tags[0] == "2" && arr.tags[4] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+  if(arr.tags[6] == "2" && arr.tags[7] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+  if(arr.tags[2] == "2" && arr.tags[5] == "2" && arr.tags[8] == "2"){
+    alert("O won");
+ }
+ var today = new Date();
+ var sec1 = parseInt(today.getSeconds());
+sec = sec1 - sec;
+ stb.rows.push({
+        Player: arr.tags[8],
+        Time: sec + " sec"
+      });
+sec = sec1;
+}
+ 
+
+</script>
+
+</body>
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'}),_trfd.push({'ap':'cpsh-oh'},{'server':'sg2plzcpnl486122'},{'id':'8329372'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/tcc/tcc_l.combined.1.0.6.min.js'></script></html>
